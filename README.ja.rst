@@ -1,7 +1,7 @@
 discord.py
 ==========
 
-.. image:: https://discordapp.com/api/guilds/336642139381301249/embed.png
+.. image:: https://discord.com/api/guilds/336642139381301249/embed.png
    :target: https://discord.gg/nXzj3dg
    :alt: Discordサーバーの招待
 .. image:: https://img.shields.io/pypi/v/discord.py.svg
@@ -24,7 +24,7 @@ discord.py は機能豊富かつモダンで使いやすい、非同期処理に
 インストール
 -------------
 
-**Python 3.5.3 以降のバージョンが必須です**
+**Python 3.8 以降のバージョンが必須です**
 
 完全な音声サポートなしでライブラリをインストールする場合は次のコマンドを実行してください:
 

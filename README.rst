@@ -1,7 +1,7 @@
 discord.py
 ==========
 
-.. image:: https://discordapp.com/api/guilds/336642139381301249/embed.png
+.. image:: https://discord.com/api/guilds/336642139381301249/embed.png
    :target: https://discord.gg/r3sSKJJ
    :alt: Discord server invite
 .. image:: https://img.shields.io/pypi/v/discord.py.svg
@@ -24,7 +24,7 @@ Key Features
 Installing
 ----------
 
-**Python 3.5.3 or higher is required**
+**Python 3.8 or higher is required**
 
 To install the library without full voice support, you can just run the following command:
 
@@ -41,7 +41,7 @@ Otherwise to get voice support you should run the following command:
 .. code:: sh
 
     # Linux/macOS
-    python3 -m pip install -U discord.py[voice]
+    python3 -m pip install -U "discord.py[voice]"
 
     # Windows
     py -3 -m pip install -U discord.py[voice]
@@ -59,7 +59,7 @@ To install the development version, do the following:
 Optional Packages
 ~~~~~~~~~~~~~~~~~~
 
-* PyNaCl (for voice support)
+* `PyNaCl <https://pypi.org/project/PyNaCl/>`__ (for voice support)
 
 Please note that on Linux installing voice you must install the following packages via your favourite package manager (e.g. ``apt``, ``dnf``, etc) before running the above commands:
 

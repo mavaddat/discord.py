@@ -7,15 +7,53 @@ The following section outlines the API of discord.py's command extension module.
 
 .. _ext_commands_api_bot:
 
+Bots
+------
+
 Bot
-----
+~~~~
+
+.. attributetable:: discord.ext.commands.Bot
 
 .. autoclass:: discord.ext.commands.Bot
     :members:
     :inherited-members:
+    :exclude-members: after_invoke, before_invoke, check, check_once, command, event, group, listen
+
+    .. automethod:: Bot.after_invoke()
+        :decorator:
+
+    .. automethod:: Bot.before_invoke()
+        :decorator:
+
+    .. automethod:: Bot.check()
+        :decorator:
+
+    .. automethod:: Bot.check_once()
+        :decorator:
+
+    .. automethod:: Bot.command(*args, **kwargs)
+        :decorator:
+    
+    .. automethod:: Bot.event()
+        :decorator:
+
+    .. automethod:: Bot.group(*args, **kwargs)
+        :decorator:
+
+    .. automethod:: Bot.listen(name=None)
+        :decorator:
+
+AutoShardedBot
+~~~~~~~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.AutoShardedBot
 
 .. autoclass:: discord.ext.commands.AutoShardedBot
     :members:
+
+Prefix Helpers
+----------------
 
 .. autofunction:: discord.ext.commands.when_mentioned
 
@@ -29,7 +67,7 @@ Event Reference
 These events function similar to :ref:`the regular events <discord-api-events>`, except they
 are custom to the command extension module.
 
-.. function:: on_command_error(ctx, error)
+.. function:: discord.ext.commands.on_command_error(ctx, error)
 
     An error handler that is called when an error is raised
     inside a command either through user input error, check
@@ -42,7 +80,7 @@ are custom to the command extension module.
     :param error: The error that was raised.
     :type error: :class:`.CommandError` derived
 
-.. function:: on_command(ctx)
+.. function:: discord.ext.commands.on_command(ctx)
 
     An event that is called when a command is found and is about to be invoked.
 
@@ -52,7 +90,7 @@ are custom to the command extension module.
     :param ctx: The invocation context.
     :type ctx: :class:`.Context`
 
-.. function:: on_command_completion(ctx)
+.. function:: discord.ext.commands.on_command_completion(ctx)
 
     An event that is called when a command has completed its invocation.
 
@@ -64,50 +102,133 @@ are custom to the command extension module.
 
 .. _ext_commands_api_command:
 
-Command
---------
+Commands
+----------
+
+Decorators
+~~~~~~~~~~~~
 
 .. autofunction:: discord.ext.commands.command
+    :decorator:
 
 .. autofunction:: discord.ext.commands.group
+    :decorator:
+
+Command
+~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.Command
 
 .. autoclass:: discord.ext.commands.Command
     :members:
     :special-members: __call__
+    :exclude-members: after_invoke, before_invoke, error
+
+    .. automethod:: Command.after_invoke()
+        :decorator:
+
+    .. automethod:: Command.before_invoke()
+        :decorator:
+
+    .. automethod:: Command.error()
+        :decorator:
+
+Group
+~~~~~~
+
+.. attributetable:: discord.ext.commands.Group
 
 .. autoclass:: discord.ext.commands.Group
     :members:
     :inherited-members:
+    :exclude-members: after_invoke, before_invoke, command, error, group
+
+    .. automethod:: Group.after_invoke()
+        :decorator:
+
+    .. automethod:: Group.before_invoke()
+        :decorator:
+
+    .. automethod:: Group.command(*args, **kwargs)
+        :decorator:
+
+    .. automethod:: Group.error()
+        :decorator:
+
+    .. automethod:: Group.group(*args, **kwargs)
+        :decorator:
+
+GroupMixin
+~~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.GroupMixin
 
 .. autoclass:: discord.ext.commands.GroupMixin
     :members:
+    :exclude-members: command, group
+
+    .. automethod:: GroupMixin.command(*args, **kwargs)
+        :decorator:
+
+    .. automethod:: GroupMixin.group(*args, **kwargs)
+        :decorator:
 
 .. _ext_commands_api_cogs:
 
 Cogs
 ------
 
+Cog
+~~~~
+
+.. attributetable:: discord.ext.commands.Cog
+
 .. autoclass:: discord.ext.commands.Cog
     :members:
+
+CogMeta
+~~~~~~~~
+
+.. attributetable:: discord.ext.commands.CogMeta
 
 .. autoclass:: discord.ext.commands.CogMeta
     :members:
 
-.. _ext_commands_api_formatters:
+.. _ext_commands_help_command:
 
 Help Commands
------------------
+---------------
+
+HelpCommand
+~~~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.HelpCommand
 
 .. autoclass:: discord.ext.commands.HelpCommand
     :members:
+
+DefaultHelpCommand
+~~~~~~~~~~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.DefaultHelpCommand
 
 .. autoclass:: discord.ext.commands.DefaultHelpCommand
     :members:
     :exclude-members: send_bot_help, send_cog_help, send_group_help, send_command_help, prepare_help_command
 
+MinimalHelpCommand
+~~~~~~~~~~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.MinimalHelpCommand
+
 .. autoclass:: discord.ext.commands.MinimalHelpCommand
     :members:
     :exclude-members: send_bot_help, send_cog_help, send_group_help, send_command_help, prepare_help_command
+
+Paginator
+~~~~~~~~~~
+
+.. attributetable:: discord.ext.commands.Paginator
 
 .. autoclass:: discord.ext.commands.Paginator
     :members:
@@ -115,7 +236,8 @@ Help Commands
 Enums
 ------
 
-.. class:: discord.ext.commands.BucketType
+.. class:: BucketType
+    :module: discord.ext.commands
 
     Specifies a type of bucket for, e.g. a cooldown.
 
@@ -149,46 +271,66 @@ Enums
 Checks
 -------
 
-.. autofunction:: discord.ext.commands.check
+.. autofunction:: discord.ext.commands.check(predicate)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.check_any
+.. autofunction:: discord.ext.commands.check_any(*checks)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.has_role
+.. autofunction:: discord.ext.commands.has_role(item)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.has_permissions
+.. autofunction:: discord.ext.commands.has_permissions(**perms)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.has_guild_permissions
+.. autofunction:: discord.ext.commands.has_guild_permissions(**perms)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.has_any_role
+.. autofunction:: discord.ext.commands.has_any_role(*items)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.bot_has_role
+.. autofunction:: discord.ext.commands.bot_has_role(item)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.bot_has_permissions
+.. autofunction:: discord.ext.commands.bot_has_permissions(**perms)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.bot_has_guild_permissions
+.. autofunction:: discord.ext.commands.bot_has_guild_permissions(**perms)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.bot_has_any_role
+.. autofunction:: discord.ext.commands.bot_has_any_role(*items)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.cooldown
+.. autofunction:: discord.ext.commands.cooldown(rate, per, type=discord.ext.commands.BucketType.default)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.max_concurrency
+.. autofunction:: discord.ext.commands.max_concurrency(number, per=discord.ext.commands.BucketType.default, *, wait=False)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.before_invoke
+.. autofunction:: discord.ext.commands.before_invoke(coro)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.after_invoke
+.. autofunction:: discord.ext.commands.after_invoke(coro)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.guild_only
+.. autofunction:: discord.ext.commands.guild_only(,)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.dm_only
+.. autofunction:: discord.ext.commands.dm_only(,)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.is_owner
+.. autofunction:: discord.ext.commands.is_owner(,)
+    :decorator:
 
-.. autofunction:: discord.ext.commands.is_nsfw
+.. autofunction:: discord.ext.commands.is_nsfw(,)
+    :decorator:
 
 .. _ext_commands_api_context:
 
 Context
 --------
+
+.. attributetable:: discord.ext.commands.Context
 
 .. autoclass:: discord.ext.commands.Context
     :members:
@@ -209,6 +351,9 @@ Converters
 .. autoclass:: discord.ext.commands.Converter
     :members:
 
+.. autoclass:: discord.ext.commands.ObjectConverter
+    :members:
+
 .. autoclass:: discord.ext.commands.MemberConverter
     :members:
 
@@ -218,16 +363,31 @@ Converters
 .. autoclass:: discord.ext.commands.MessageConverter
     :members:
 
+.. autoclass:: discord.ext.commands.PartialMessageConverter
+    :members:
+
+.. autoclass:: discord.ext.commands.GuildChannelConverter
+    :members:
+
 .. autoclass:: discord.ext.commands.TextChannelConverter
     :members:
 
 .. autoclass:: discord.ext.commands.VoiceChannelConverter
     :members:
 
+.. autoclass:: discord.ext.commands.StoreChannelConverter
+    :members:
+
+.. autoclass:: discord.ext.commands.StageChannelConverter
+    :members:
+
 .. autoclass:: discord.ext.commands.CategoryChannelConverter
     :members:
 
 .. autoclass:: discord.ext.commands.InviteConverter
+    :members:
+
+.. autoclass:: discord.ext.commands.GuildConverter
     :members:
 
 .. autoclass:: discord.ext.commands.RoleConverter
@@ -245,30 +405,26 @@ Converters
 .. autoclass:: discord.ext.commands.PartialEmojiConverter
     :members:
 
+.. autoclass:: discord.ext.commands.ThreadConverter
+    :members:
+
 .. autoclass:: discord.ext.commands.clean_content
     :members:
 
-.. data:: ext.commands.Greedy
+.. autoclass:: discord.ext.commands.Greedy()
 
-    A special converter that greedily consumes arguments until it can't.
-    As a consequence of this behaviour, most input errors are silently discarded,
-    since it is used as an indicator of when to stop parsing.
+.. autofunction:: discord.ext.commands.run_converters
 
-    When a parser error is met the greedy converter stops converting, undoes the
-    internal string parsing routine, and continues parsing regularly.
+Flag Converter
+~~~~~~~~~~~~~~~
 
-    For example, in the following code:
+.. autoclass:: discord.ext.commands.FlagConverter
+    :members:
 
-    .. code-block:: python3
+.. autoclass:: discord.ext.commands.Flag()
+    :members:
 
-        @commands.command()
-        async def test(ctx, numbers: Greedy[int], reason: str):
-            await ctx.send("numbers: {}, reason: {}".format(numbers, reason))
-
-    An invocation of ``[p]test 1 2 3 4 5 6 hello`` would pass ``numbers`` with
-    ``[1, 2, 3, 4, 5, 6]`` and ``reason`` with ``hello``\.
-
-    For more information, check :ref:`ext_commands_special_converters`.
+.. autofunction:: discord.ext.commands.flag
 
 .. _ext_commands_api_errors:
 
@@ -300,6 +456,9 @@ Exceptions
     :members:
 
 .. autoexception:: discord.ext.commands.BadUnionArgument
+    :members:
+
+.. autoexception:: discord.ext.commands.BadLiteralArgument
     :members:
 
 .. autoexception:: discord.ext.commands.PrivateMessageOnly
@@ -338,6 +497,45 @@ Exceptions
 .. autoexception:: discord.ext.commands.NotOwner
     :members:
 
+.. autoexception:: discord.ext.commands.MessageNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.MemberNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.GuildNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.UserNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.ChannelNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.ChannelNotReadable
+    :members:
+
+.. autoexception:: discord.ext.commands.ThreadNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.BadColourArgument
+    :members:
+
+.. autoexception:: discord.ext.commands.RoleNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.BadInviteArgument
+    :members:
+
+.. autoexception:: discord.ext.commands.EmojiNotFound
+    :members:
+
+.. autoexception:: discord.ext.commands.PartialEmojiConversionFailure
+    :members:
+
+.. autoexception:: discord.ext.commands.BadBoolArgument
+    :members:
+
 .. autoexception:: discord.ext.commands.MissingPermissions
     :members:
 
@@ -359,6 +557,21 @@ Exceptions
 .. autoexception:: discord.ext.commands.NSFWChannelRequired
     :members:
 
+.. autoexception:: discord.ext.commands.FlagError
+    :members:
+
+.. autoexception:: discord.ext.commands.BadFlagArgument
+    :members:
+
+.. autoexception:: discord.ext.commands.MissingFlagArgument
+    :members:
+
+.. autoexception:: discord.ext.commands.TooManyFlags
+    :members:
+
+.. autoexception:: discord.ext.commands.MissingRequiredFlag
+    :members:
+
 .. autoexception:: discord.ext.commands.ExtensionError
     :members:
 
@@ -377,9 +590,12 @@ Exceptions
 .. autoexception:: discord.ext.commands.ExtensionNotFound
     :members:
 
+.. autoexception:: discord.ext.commands.CommandRegistrationError
+    :members:
+
 
 Exception Hierarchy
-+++++++++++++++++++++
+~~~~~~~~~~~~~~~~~~~~~
 
 .. exception_hierarchy::
 
@@ -390,7 +606,25 @@ Exception Hierarchy
                 - :exc:`~.commands.MissingRequiredArgument`
                 - :exc:`~.commands.TooManyArguments`
                 - :exc:`~.commands.BadArgument`
+                    - :exc:`~.commands.MessageNotFound`
+                    - :exc:`~.commands.MemberNotFound`
+                    - :exc:`~.commands.UserNotFound`
+                    - :exc:`~.commands.ChannelNotFound`
+                    - :exc:`~.commands.ChannelNotReadable`
+                    - :exc:`~.commands.BadColourArgument`
+                    - :exc:`~.commands.RoleNotFound`
+                    - :exc:`~.commands.BadInviteArgument`
+                    - :exc:`~.commands.EmojiNotFound`
+                    - :exc:`~.commands.PartialEmojiConversionFailure`
+                    - :exc:`~.commands.BadBoolArgument`
+                    - :exc:`~.commands.ThreadNotFound`
+                    - :exc:`~.commands.FlagError`
+                        - :exc:`~.commands.BadFlagArgument`
+                        - :exc:`~.commands.MissingFlagArgument`
+                        - :exc:`~.commands.TooManyFlags`
+                        - :exc:`~.commands.MissingRequiredFlag`
                 - :exc:`~.commands.BadUnionArgument`
+                - :exc:`~.commands.BadLiteralArgument`
                 - :exc:`~.commands.ArgumentParsingError`
                     - :exc:`~.commands.UnexpectedQuoteError`
                     - :exc:`~.commands.InvalidEndOfQuotedStringError`
@@ -418,3 +652,5 @@ Exception Hierarchy
             - :exc:`~.commands.NoEntryPointError`
             - :exc:`~.commands.ExtensionFailed`
             - :exc:`~.commands.ExtensionNotFound`
+    - :exc:`~.ClientException`
+        - :exc:`~.commands.CommandRegistrationError`
